@@ -35,7 +35,14 @@ function create() {
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    goFullScreen();
+   
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.minWidth = 320;
+    this.scale.minHeight = 480;
+    this.scale.maxWidth = 768;
+    this.scale.maxHeight = 1152;
+    game.scale.refresh();
+    
     var background = game.add.sprite(0, 0, 'background');
 	background.scale.setTo(3.5, 4.5);
 
