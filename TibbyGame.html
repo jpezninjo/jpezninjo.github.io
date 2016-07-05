@@ -35,7 +35,7 @@ function create() {
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
+    goFullScreen();
     var background = game.add.sprite(0, 0, 'background');
 	background.scale.setTo(3.5, 4.5);
 
@@ -165,6 +165,16 @@ function update() {
     }
 
 }
+    
+goFullScreen: function() { 
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
+    if (this.game.scale.isFullScreen) { 
+        this.game.scale.stopFullScreen();  
+    } else {
+        this.game.scale.startFullScreen();     
+    }
+}
+    
 </script>
 
 </body>
