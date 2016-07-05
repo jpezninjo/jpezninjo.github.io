@@ -56,7 +56,7 @@ function create() {
     dog.animations.add('backward', [9, 10, 11], 10, true);
     dog.animations.add('forward', [0, 1, 2], 10, true);
 
-	
+
 	treat = game.add.sprite(650, 20, 'treat');
 	treat.animations.add('idle', [0, 1, 2, 3, 4, 3, 2, 1], 6, true);
 	treat.inputEnabled = true;
@@ -78,6 +78,24 @@ function update() {
 	
 	treat.animations.play("idle");
 
+    if (game.input.pointer1.isDown){    
+        if (Math.floor(game.input.x/(game.width/2)) === LEFT) {  
+            //  Move to the left
+        dog.body.velocity.x = 150;      
+        dog.animations.play('right');   
+        }    
+        if (Math.floor(game.input.x/(game.width/2)) === RIGHT) {
+            //  Move to the right      
+            dog.body.velocity.x = -150;      
+            dog.animations.play('left');    
+        }  
+    }else{      //  Stand still     
+        dog.animations.stop();      
+        dog.frame = lastFacing;  
+    }
+    
+    
+    
 	if(counter++ % 60 == 0){
 	//console.log(counter);
 	var luck = Math.random() * 10;
