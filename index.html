@@ -1,540 +1,634 @@
 <!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="ahttp://www.w3schools.com/lib/w3.css">
+        
+        
+        <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" type="text/css" href="loading.css">
+        <link rel="stylesheet" type="text/css" href="tooltip.css">
+        <link rel="stylesheet" type="text/css" href="progressbar.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        
+        <script>
+            
+            
+            $(document).ready(function(){
+                $(".unhideable").hide();
+                $(".working-on-sub").hide();
+                $("#o").hide();
+                $("#b").hide();
+                $(".sk-fading-circle").hide();
 
-<head>
-	<title>Joseph Perez</title>
-	<meta charset="utf-8">
-	<meta name="author" content="Joseph Perez"> 
-	<!--<meta name=viewport content='width=1000'>-->
-	<link rel="icon" href="./resources/images/joop.png">
-	<link rel="stylesheet" type="text/css" href="style2.css">
-	
-	<!--Latest JQuery source-->
-	<script type = "text/javascript"
-         src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<!--Latest JQuery UI source-->	
-	<script type = "text/javascript" 
-         src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-	
-	<script type = "text/javascript" src = "myscript.js"></script>
+                $("#logo").click(goHome);
+
+                $("a").on('click', function(event) {
+                    // Make sure this.hash has a value before overriding default behavior
+                    if (this.hash !== "") {
+                      // Prevent default anchor click behavior
+                      event.preventDefault();
+                      // Store hash
+                      var hash = this.hash;
+                      // Using jQuery's animate() method to add smooth page scroll
+                      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                      $('html, body').animate({
+                          scrollTop: $(hash).offset().top
+                      }, 800, function(){
+                          // Add hash (#) to URL when done scrolling (default click behavior)
+                          window.location.hash = hash;
+                      });
+                    }// End if
+                });
+                
+                
+                $(".working-on").click(function(){
+                    console.log("log");
+                   $(this).find(".working-on-sub").fadeToggle();
+                });
+                
+                
+                
+                $("#about-me-link").click(function(){
+                   $("#baa, #bba, #blog-header, .blog-entry, #bb").fadeToggle();
+                    $("#b").css({"height" : "100%", "width" : "100%"});
+                });
+                
+            });         
 
 
-</head>
+            function scrollableElement(els) {
+                for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+                    var el = arguments[i],
+                      $scrollElement = $(el);
+                    if ($scrollElement.scrollTop()> 0) {
+                        return el;
+                    } else {
+                        $scrollElement.scrollTop(1);
+                        var isScrollable = $scrollElement.scrollTop()> 0;
+                        $scrollElement.scrollTop(0);
+                            if (isScrollable) {
+                                return el;
+                            }
+                        }
+                    }
+                return [];
+            }
 
-<script>
+            var into_sentence = "Mom said I wasn't a website expert";
+            var intro2 = ", so &nbsp;I &nbsp;proved &nbsp;her &nbsp;wrong";
+            var i = 0;
+            var contents = "";
+            var interval2;
 
-function toggleNav(x) {
-		x.classList.toggle("change");
-		
-		var elem = document.getElementByClassName("barContainer");
-		elem.style.position = 'absolute';
-		var pos = 0;
-		var id = setInterval(frame, 5);
-		function frame() {
-			if (pos == 50) {
-				clearInterval(id);
-			} else {
-			  pos++;
-			  elem.style.top = pos + 'px';
-			}
-		}
-	  }
-	  
-	
-	$(document).ready(function(){
+            var intro_event = setTimeout(displayIntro1, 2000);
 
-		$(".dropDownArrow").click(function(){
-				
-			<!--I've always freaking loved terniary operators. Now I love them even more, and appreciate keeping variables in JS-->
-			var src = $(this).attr("src");
-			var image = (src === "http://imgur.com/4M0xF7j.png" ? "http://imgur.com/ni8idOJ.png" : "http://imgur.com/4M0xF7j.png");
-			$(this).attr("src",image);
-			$(this).parent().find(".collapsible").slideToggle();
-		});
-		
-		$("#e").find(".collapsible").hide();
-		$(".barContainer").click(function(){
-			$("#dropDown").fadeToggle();
-		});
-		
-		$("#da").find("span").click(function(){
-               $("this").effect( "shake", {times:4}, 1000 );
-            });
-	});
+            function displayIntro1(){
+                var interval = setInterval(function(){
+                    if(!into_sentence.charAt(i)){
+                        clearInterval(interval);
+                        i = 0;
+                        setTimeout(function(){  
+                            interval2 = setInterval(function(){
+                                if(!intro2.charAt(i)){
+                                    clearInterval(interval2);
+                                    goHome();
+                                }else{
+                                    if(intro2.charAt(i) == '&'){
+                                        console.log("spam");
+                                        i += 6;
+                                    }else{
+                                        contents += intro2.charAt(i++);
+                                        document.getElementById("intro-text-2").innerHTML = '"' + contents + '"';
+                                    }     
+                                }
+                            }, 25);
+                        }, 1500)
+                    }else{
+                        if(into_sentence.charAt(i) == '&'){
+                            console.log("spam");
+                            i += 6;
+                        }else{
+                            contents += into_sentence.charAt(i++);
+                            document.getElementById("intro-text-2").innerHTML = '"' + contents + '"';
+                        }
+                    }
+                }, 25);
+            }
 
-</script>
 
-<body>
+            function goHome(){
+                setTimeout(function(){  
+                    $(".sk-fading-circle").fadeToggle();
+                }, 500);
 
-	<div id="z" style="right: 0">
-	   
-			<div id="dropDown">
-				<a class="menuitem" href="">Home</a>
-				<a class="menuitem" href="#projects">Stuff</a>
-				<a class="menuitem" href="">Social</a>
-			</div>
-			
-			<div class="barContainer change" onclick="toggleNav(this)">
-			  <div class="bar1"></div>
-			  <div class="bar2"></div>
-			  <div class="bar3"></div>
-			</div>
-	   
+                setTimeout(function(){  
+                    $("#a").slideToggle(function(){
+                        $(".unhideable").slideToggle();
+                    });
+                    $("#o").slideToggle();
+                    $("#b").slideToggle();
+                    setTimeout(function(){  
+                        $("body").css("overflow-y", "scroll");
+                    }, 500);
+                }, 1500);
+                
+                clearInterval(intro_event);
+                
+                //THIS IS SO COOL
+                goHome = function(){}; 
+            }
+
+
+        </script>
+
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Corben', Georgia, Times, serif;
+            }
+            article, span, p, div {
+                font-family: 'Nobile', Helvetica, Arial, sans-serif;
+            }
+
+            body {
+                background-color: tan;
+                background-size: cover;
+                background-repeat: no-repeat;
+                overflow-y: hidden;
+            }
+            
+            .current-page-a{
+                border-top: 2px solid black;
+            }
+            
+            #ba > div, #bb{
+                box-shadow: 0 5px 5px #333333;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav {
+                bottom: .8em;
+                position: absolute;
+                right: 0;
+            }
+
+            #primary_nav_wrap{
+                float: right;
+                margin: 15px 3.5% 0 0;
+            }
+            
+            #primary_nav_wrap img{
+                height: 1.25em;
+                margin-right: 0.45em;
+                margin-bottom: -0.1em;
+            }
+            
+            #primary_nav_wrap img:hover{
+                filter: gray;
+            }
+
+
+            #primary_nav_wrap ul {
+                list-style:none;
+                position:relative;
+                float:left;
+                margin:0;
+                padding:0
+            }
+
+            #primary_nav_wrap ul a {
+                display:block;
+                color:#333;
+                text-decoration:none;
+                font-weight:700;
+                font-size:16px;
+                line-height:32px;
+                padding: 0 15px;
+                margin-right: 5px;
+                //font-family: Futura, "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+                border-bottom: 2px solid black;
+            }
+
+            #primary_nav_wrap ul li {
+                position:relative;
+                float:left;	
+            }
+
+            #primary_nav_wrap ul li.top-level-menu-item {
+                background:#ddd
+
+            }
+
+            #primary_nav_wrap ul a {
+                line-height: 50px;
+                border-top: 2px solid rgba(255, 255, 255, 0.0);
+            }
+
+            #b ul a {
+                line-height: em;
+            }
+
+            ul a {
+                padding-right: 16px;
+                padding-left: 16px;
+                display: block;
+                text-decoration: none;
+                font-family: Georgia, "Times New Roman", Times, serif;
+                font-size: 21px;
+                color: #371C1C;
+            }
+
+            #primary_nav_wrap ul a:hover {
+                color: #FFF;
+                border-top: 2px solid black;
+            }
+
+            ul a:hover {
+                color: #529ECC;;
+                2px solid black;
+            }
+
+            .center-wrapper{
+                text-align: center;
+            }
+
+            .centered{
+                display: inline-block;
+            }
+
+            #a > div.centered{
+                font-size: 48px;
+                margin-top: 220px;
+            }
+
+            #o{
+                width: 100%;
+                height: 100px;
+                position: relative;
+                background-color: tan;
+                background: radial-gradient(#3f6077, #253947);
+            }
+
+            #oa{
+                padding-left: 33%;
+                padding-top: 2em;
+                abackground-color: #fafafa;
+            }
+
+            #oa span{
+                font-family: 'Montserrat', sans-serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                text-align: center;
+                color: whitesmoke;
+                line-height: 50px;
+                font-size: 25px;
+            }
+
+            #a{
+                display:inline-block;
+                float: left;
+                height: 100%;
+                width: 100%;
+                font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;
+            }
+
+            #b{
+                float: left;
+                min-height: 500px;
+                background: linear-gradient(skyblue, white);
+                padding-top: 2em;
+                border-top: 1px solid black;
+                padding-bottom: 2em;
+            }
+
+            #b > h1{
+                float: left;
+                margin-left: 17%;
+                font-size: 48px;
+            }
+
+            #ba{
+                width: 70%;
+                float: left;
+            }
+
+            #bb{
+                border: 4px solid grey;	
+                width: 19%;
+                float: right;
+                padding: 2% 2%;
+                margin-right: 20px;
+                background-color: whitesmoke;
+                min-height: 50em;
+            }
+            
+            #bb img{
+                border: 1px solid #CCC;
+                padding: 1px;
+                display: inline-block;
+                box-shadow: 0 5px 5px #333333;
+            }
+
+            #bb li{
+                list-style: circle inside;
+            }
+
+
+            #bba{
+                min-height: 250px;
+            }
+            
+            #bba a{
+                line-height: 50px;
+            }
+            
+            #bba #myProgress{
+                margin-bottom: 1.0em;
+            }
+
+            #baa{
+                margin-top: 2em;
+                line-height: 150%;
+                padding: 0 2em 2em 2em;
+                margin-left: 5em;
+                background: url('linedpaper.png') repeat;
+                border-radius: .5em;
+            }
+            
+            #baa p{
+                font-size: 22px;
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                line-height: 1.42857143;
+                background: url('linedpaper.png') repeat;
+                padding: 1.25em;
+                letter-spacing: 0.05em;
+                word-spacing: .25em;
+            }
+            
+            .first-letter{
+                font-size: 150%;
+            }
+
+            #bbb{
+                min-height: 250px;
+            }
+            
+            #blog-header{
+                max-width: 90%;
+                letter-spacing: 0.2em;
+                color: whitesmoke;
+                line-height: 80px;
+                background-color: #8390a3;
+                border-radius: 5px;
+                margin-left: 5em;
+                padding-left: 2em;
+            }
+
+            .blog-entry{
+                float: left;
+                margin-top: 2em;
+                margin-left: 5em;
+                background-color: whitesmoke;
+                background: url('linedpaper.png') repeat;
+                
+                max-width: 90%;
+                padding-bottom: 20px;
+                border: 2px solid grey;
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                line-height: 1.4285714285714286em;
+                border-radius: 0.5em;
+                overflow: hidden;
+            }
+            .blog-entry h2, .blog-entry h4{
+                padding: .5em 1em;
+                background-color: #8390a3;
+                line-height: 150%;
+            }
+
+            .blog-entry article{
+                padding: 20px 20px;
+                Afont-family: Georgia, "Times New Roman", Times, serif;
+                font-weight: normal;
+                color: #404040;
+            }
+            
+            #page-footer{
+                padding-top: 5em;
+                text-align: center;
+                bottom: 0;
+                float: left;
+                width: 100%;
+            }
+            
+        </style>
+
+    </head>
+
+
+
+    <body>
+        <div>
+            <div id="o">
+                <div id="oa" class="unhideable">
+                    <span>Joseph Perez</span>
+                </div>
+                <nav id="primary_nav_wrap" class="unhideable">
+                    <ul>
+                        <li class="current-page-li"> <a style="border-top: 2px solid black;" id="home-link" href="./index.html"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
+                        <li><a id="about-me-link" class="top-level-menu-item" href="./about-me.html"><img src="http://aumentada.net/wp-content/uploads/2015/05/user.png">About Me</a></li>
+                        <li><a id="portfolio-link" href="./portfolio.html"><img src="http://image.flaticon.com/icons/svg/149/149830.svg">Portfolio</a></li>
+                        <li><a id="contact-me-link" href="./contact-me.html"><img src="http://image.flaticon.com/icons/svg/9/9556.svg">Contact Me</a></li> 
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="center-wrapper" id="a" class="hideable">    
+                <div class="centered">
+                    <div class="tooltip" style="width: auto; height: auto;">
+                        <span class="tooltiptext" style="float: center;">Enter the site already</span>
+                        <img id="logo" src="logo2.png" style="height: 5em; float: center">
+                    </div>
+                    <div style="color: #529ECC; float: center">
+                        <section style="float: left;"><span id="intro-text-2"></span></section>
+                    </div>
+
+                    <div class="sk-fading-circle">
+                        <div class="sk-circle1 sk-circle"></div>
+                        <div class="sk-circle2 sk-circle"></div>
+                        <div class="sk-circle3 sk-circle"></div>
+                        <div class="sk-circle4 sk-circle"></div>
+                        <div class="sk-circle5 sk-circle"></div>
+                        <div class="sk-circle6 sk-circle"></div>
+                        <div class="sk-circle7 sk-circle"></div>
+                        <div class="sk-circle8 sk-circle"></div>
+                        <div class="sk-circle9 sk-circle"></div>
+                        <div class="sk-circle10 sk-circle"></div>
+                        <div class="sk-circle11 sk-circle"></div>
+                        <div class="sk-circle12 sk-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="b" name="b">
+	       <div id="ba">
+
+               <div id="baa">
+                   <br>
+                   <p>
+                       <span style="font-size: 120%; font-weight: bold;"><span class="first-letter">H</span>ey there. My name is Joseph. I like to code. I like making stuff.</span>
+
+                       <br>
+
+                       <span class="first-letter">I</span>'m a third year student at the University of San Francisco pursueing my Bachelor's degree in Computer Science. 
+                       My interests are in game, graphic, and web design. Be sure to check out all my projects! Those can be found in my <a href="./portfolio.html">portfolio</a>.
+                   </p>
+                   
+                   <div>
+                       <img src="">    
+                   </div>
+               </div>
+                <br><br><br><br><br>
+                <div id="blog-header">
+                    <h1>Latest Blog Post</h1>
+                </div>
+               
+               <div class="blog-entry">
+                   <h2>Determined To Start a Blog</h2>
+                   <article>I don't know how but I came across Notch's tumblr and now I really want a blog. If you don't what who Notch is, he is 
+                    the creator of a game you might know: Minecraft. I looked up "minecraft terrain generation" and google recommended a search for that,
+                       plus the word "algorithm" at the end. Being a computer scientist/gaming nerd, I just couldn't refuse. 
+
+                       Oh yeah. I'm gonna try to make these blogs
+                       sound as if someone is actually reading them.
+                    <br><br>
+                    <hr>
+		          </article>
+	           </div>
+
+                <div class="blog-entry">
+                    <h2>I'm Graduating Next Spring and I'm Totally Wasting My Summer</h2>
+                    <article>
+                        I hate the internet. Today I was continueing a tutorial on Rails on Udemy and I was thinking about the age of 
+                        the instructor. This kid had the voice of a 16 year old, and he knew more about one of the top programming languages
+                        in demand in the real world right now than I did, me having 0 knowledgeo of Rails. This realization made me 
+                        wish that I'd done more with my life prior to this summer. It puts me into the perspective that I'm playing catchup
+                        right now to learn all the things that I should've been doing.
+
+                        A year ago I had finished my first year of undergraduate computer science and was rewarding my two semesters of successful
+                        CS intro classes with a summer load of video games. I'd always thought that I'd be graduation maybe a semester early, and had always gotten
+                        the impression from the upperclassmen in my major to save all my worries about internships and real world til my junior and senior year.
+
+                        Fast forward a year to now. I know for certain that I'm graduating next spring, Class of 2017, having only done 3 years of college.
+                        This upcoming year is not only my junior year, but my senior year as well compacted into one sure as hell to be one helluva year.
+                        It terrifies me to think that I'm gonna be thrown into the real world in a year from now. While its comforting to know that my upcoming year
+                        will consist of half the classes/experience/knowledge that USF's computer science program has to offer (although its still a scary thought that
+                        I'm taking as many CS classes in these next two semesters as i've done in the last FOUR, and at the upperdivision level to say the least)...while its
+                        comforting to know that the real (probably couldve used a better word) skills are yet to be learned, I'll always be thinking that I couldve 
+                        and shouldve done more to prepare myself. Cheers to everyone else who's graduating a year early, and best of luck to the challenge ahead that is our
+                        junior/senior year.
+                        <br><br>
+                        <hr>
+                    </article>
+                </div>
+
+                <div class="blog-entry" style="padding-bottom: 0;">
+                    <h2>Keeping Up With Those You've Never Actually Met</h2>
+                    <article>
+                        I love the internet. Today I was pondering what games to buy on Steam as 
+                        its close to the July 4th cutoff and none of the games being advertised highly seemed
+                        to grab my interest. I hopped on Steam and contacted an old friend I'd met on a modded 
+                        minecraft server way back when I was senior in high school, 2013-2014 (holy crap its 2016).
+                        We'd been partners in-game for months playing with the same community (UGLounge, which we both 
+                        do still try to keep up with). I've hit him up a few times over the years to say whatsup
+                        and I love that we have special relationship where we won't have talked for months and I'll be like
+                        "any good games on the Steam summer sale" and we'll just dive into a conversation without any mention of 
+                        what we've been up to since the last time we talked. I always feel warm on the inside when we chat.
+                        I've never met him in real life, don't know what he looks like. I just know three things: he's from Denmark.
+                        We're about the same age. And we both have similar interest in games. Oh and we're both chill as hell.
+                         <br>   	<br>   	<br>
+                        <a href="#">View All Posts</a>(jk have yet to make a blog home)
+                        <hr>
+                    </article>
+                </div>
+            <div id="blog-footer">
+
+            </div>
+
 	</div>
 
-
-  <div id="a">
- 
-		<img src="http://i.imgur.com/XMpGtNC.png">
-		
-		<h2 class="centerText">
-			<span>Joseph Perez</span>
-		</h2>
-   
-
-   
-  </div><!--End a-->
-  
-
-  
-  <div id="b">
-    <!--<img src="./resources/images/sfbay.jpg" style="float: left; width: 100%; margin-top: -40px;">-->
-	<div id="ba">
-		<h3>GG Bridge captured on iphone 5s</h3>
+	<div id="bb">
+        <img src="logo.png" style="width: 100%">
+        <br><br><br>
+		<div id="bba">
+			<h4>What Am I Working On?</h4>
+            <hr>
+			<ul>
+			<a class="working-on"><li>This website</li></a>
+                <div class="working-on-sub">
+                    <ul>TODO:
+                        <li>Design front-page</li>
+                        <li>Create aboutme/contactme</li>
+                        <li>Create actual portfolio</li>
+                    </ul>
+                </div>
+                <div id="myProgress">
+                    <div id="myBar" style="width: 52%;">
+                        <div id="label">52%</div>
+                    </div>
+                </div>
+			<a><li>Learning 3D Modeling (Blender)</li></a>
+                                    <div id="myProgress">
+                      <div id="myBar" style="width: 99%;">
+                        <div id="label">99%</div>
+                      </div>
+                    </div>
+			<a><li>Trying to Make a Game in Unity</li></a>
+                                   <div id="myProgress">
+                      <div id="myBar" style="width: 2%;">
+                        <div id="label">2%</div>
+                      </div>
+                    </div>
+			</ul>
+		</div>
+        <br><br><br>
+		<div id="bbb">
+			<h4>Cool Stuff I've Found</h4>
+            <hr>
+            <br>
+			<ul>
+			<a href="http://notch.tumblr.com/post/123343045/my-vision-for-survival"><li>A post about Notch on his upcoming game, Minecraft</li></a>
+			<a href="https://www.reddit.com/r/gamedev/comments/4u330g/horror_game_design_and_the_blair_witch_effect/"><li>A rant about Horror Game patterns</li></a>
+			<a href="http://answers.unity3d.com/questions/16650/game-asset-website-list-free-and-paid-textures-mod.html"><li>List of sites for free 3D models</li></a>
+			<a href="http://www.color-hex.com/color-names.html"><li>Look up a color for your website then find similar shades, or browse more</li></a>
+			<a href="https://sites.google.com/site/forgottenemployee/"><li>The Forgotten Employee</li></a>
+			<a href="http://matt.might.net/articles/what-cs-majors-should-know/"><li>A list of things every CS major should know</li></a>
+			<a href="#"><li></li></a>
+			</ul>
+            <br><br>
+            <h4>Check out my friend's sites!</h4>
+            <hr>
+            <ul>
+            <a href="http://jvinh.co/"><li>Julianne Vinh (Graphics Designer/Hiker)</li></a>
+            <a href="http://gchan5.github.io/"><li>Gilbert Chan (Aspiring Software Developer)</li></a>
+            <a href="https://jazlynngep.wordpress.com/2016/07/04/new-beginnings/"><li>Jazlynn Pastor (Social Justice Blogger)</li></a>
+            <a href="http://www.eluisphoto.com/"><li>Eric Luis (Professional Photographer)</li></a>
+            </ul>
+		</div>
+	
 	</div>
-  
-  </div>
 
-  <div id="c">
-  
- 
-    <div id="ca">
-      <p>
-        <span>M</span>y name is Joseph Perez.
-      </p>
-      <p><span>I</span> am a third year undergrad at the University of San Francisco studying Computer Science and set to graduate next May 2017. I am currently spending my summer 2016 doing independent learning of web development via online resources such as w3, codeschool, tutorialspoint, and stackoverflow.
-        <br>
-        <br><span>O</span>utside of class you're likely to find me immerse in projects of any size or talking with other students at my campus's Computer Science labs located on the 5th floor of the Harney Science building. I especially love helping lesser-experienced
-        students learn new concepts for their assignments and looking for inspiration in the work of upperclassmen.
-      </p>
-	  
-	  <p><span>O</span>utside of my coursework, I enjoy listening to pop music, playing tennis, learning new songs on my piano and guitar, and performing traditional Filipino and Hawaiian dances for my cultural clubs.</p>
-	  
-	  
-	</div>
-  </div>
+    <div id="page-footer">
+            &#169; Joseph Perez 2016
+    </div>
+            
+</div>
 
-
-  <div id="e">
-
-    <br>
-    <br>
-    <center>
-	<h1>Projects <span style="font-size: 16px"></span></h1>
-	</center>
-
-    <div id="ea">
-
-      <div style="background-color:#B4C741; opacity: 1.0;width: 100%;"><span style="margin-left: 8%;"><b>Search Engine</span></b></div>
-      <br>
-	  <span style="margin-left: 8%; font-style: italic;">For my Software Development class, I wrote a search engine application broken up into 5 smaller parts.</span>
-      <br>
-	  <img class="dropDownArrow" src="http://imgur.com/4M0xF7j.png" style="margin-left: 40%; width: 4%;">
-
-	  <div class="collapsible">
-		  <ol>
-			<li>Project1 Inverted Index</li>
-			<ul>
-			<li>Created an inverted index that mapped word entries to file locations.</li>
-			<li>Given a directory, parse all nested text files and add entries to index.</li>
-			<li>Write index to a json file </li>
-			</ul>
-			
-			<li>Project2 Partial Search</li>
-			<ul>
-			<li>Adding onto part 1, given a query of words seperately by whitespace, return all matches from index and output to a json file.</li>
-			<li>Matches were determined by starting with any of the query words, ex. "a" would yield all words beginning with a.</li>
-			<li>Matches were then ranked based on number of locations.</li>
-			</ul>
-			
-			<li>Project3 Multithreading</li>
-			<ul>
-			<li>This part added multithreading functionality to our existing framework.</li>
-			<li>Our classes for parsing text files in proj1 and looking up queries in proj2 were extended to support using Java's own thread class to make our whole project more efficient.</li>
-			</ul>
-			
-			<li>Project4 Web Crawler</li>
-			<ul>
-			<li>In preparation for proj5, project 4 added the ability to use web pages instead of local text files.</li>
-			<li>Using sockets, we are able to retrieve the whole html of any web address and then strip it clean of html tags.</li>
-			<li>Additionally, our application would alslso parse any web addresses found within the html (multithreaded, of course).</li>
-			</ul>
-			
-			<li>Project5 Search Engine</li>
-			<ul>
-			<li>Finally, the last part used the Jetty library (link <a href="http://www.eclipse.org/jetty/" target=_blank>here</a>) to launch our application onto local host. This part was essentially the creation of a front-end for our first four projects.</li>
-			</ul>
-		  </ol>
-		  
-		
-	
-	  <div style="margin-left: 28%; margin-top: 30px; width: 100%;">
-		  <span>Source code can be found here:</span>
-		  <a href="https://github.com/jpezninjo/Search-Engine">
-			<img class="github-icon"; src="http://i.imgur.com/1gzkEM0.png" alt="logo_github.png">
-		  </a>
-	  </div>
- </div>
-    </div><!--end ea-->
-	
-	
-	 <div id="eb">
-
-      <div style="background-color:#B4C741; opacity: 1.0;width: 100%;"><span style="margin-left: 8%;"><b>Network the Game</span></b></div>
-      <br>
-	  <span style="margin-left: 8%; font-style: italic;">As an extra credit assignment for my Data Structures and Algorithms class, I attempted to implement the game of Network by Sid Sackson featured in his book
-	   <a href="https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=a%20gamut%20of%20games"><em> A Gamut of Games</em></a></span>
-      <br>
-	  <img class="dropDownArrow" src="http://imgur.com/4M0xF7j.png" style="margin-left: 40%; width: 4%;">
-
-	  <div class="collapsible">
-		<div style="float: left; width: 40%; min-width: 420px;">
-			<img src="https://www.cs.usfca.edu/~galles/cs245S15/Network/ChessboardStart.jpeg" style="width: 100%;">
-			<center><h2>Visual representation</h2></center>
-		</div>
-		<div style="float: left; width: 40%; min-width: 420px;">
-	  	  <ol>
-			<li>Game Design</li>
-			<ul>
-				<li>Originally I had a seperate master board with two input controllers for getting player/AI move input and doing move validation</li>
-				<li>I settled on using a 8x8 2-D integer array and used 0, 1, and 2 to represent checker pieces or empty space</li>
-				<li>For the sake of simplicity in implementing a board, driver, human player, and computer player class, I settled on using three seperate
-				 board objects, with each player having their own instance for move validation and, for the AI, move tracking</li>
-				<li></li>
-			</ul>
-			
-			<li>Implementation of Rules</li>
-			<ul>
-				<li>For a 8x8, that's 64 different move spots</li>
-				<li>The four corners are off limits to both players, and both players have "goal" sides of the board that their opponent cannot play in</li>
-				<li>The second most difficult thing to implement was to disallow clusters</li>
-				<ul>
-					<li>moves with n-neighbors in any of its 8 adjacent spots form a cluster of n
-				 plus any clusters formed by those neighbors</li>
-				</ul>
-				<li>The hardest implementation was the detection of Networks</li>
-				<ul>
-					<li>a network is a series of same-team moves connected diagonally/vertically/horizontally</li>
-					<li>Connections cannot have pieces in between</li>
-					<li>Three connections cannot be in the same cardinal</li>
-				</ul>
-			</ul>
-			
-			<li>Computer AI</li>
-			<ul>
-				<li>This part added multithreading functionality to our existing framework.</li>
-				<li>Our classes for parsing text files in proj1 and looking up queries in proj2 were extended to support using Java's own thread class to make our whole project more efficient.</li>
-			</ul>
-
-		  </ol>
-		  
-		  This game is not widely known and attempts to find it on the internet were futile for me, so a link to the class prompt can be found <a href="https://www.cs.usfca.edu/~galles/cs245S15/Network/">here</a>
-	  
-	  </div>
-	 
-	  
-  	  <div style="margin-left: 28%; margin-top: 30px; width: 100%; float: left;">
-		  <span>Source code can be found on </span>
-		  <a href="https://github.com/jpezninjo/Search-Engine">
-			<img class="github-icon"; src="http://i.imgur.com/1gzkEM0.png" alt="logo_github.png">
-		  </a>
-	  </div>
-	   </div>
-	</div><!--end eb-->
-	
-	<div id="ec">
-
-      <div style="background-color:#B4C741; opacity: 1.0;width: 100%;"><span style="margin-left: 8%;"><b>Dijstra's Algorithm</span></b></div>
-      <br>
-	  <span style="margin-left: 8%; font-style: italic;">Another project for my Data Structures and Algorithms class, I implemented Dijstra's Algorithm in 
-	  Java using a variety of data structures, most keyly and difficult being the Binomial Queue</span>
-      <br>
-	  <img class="dropDownArrow" src="http://imgur.com/4M0xF7j.png" style="margin-left: 40%; width: 4%;">
-
-	  <div class="collapsible">
-		<div style="float: left; width: 40%; min-width: 420px;">
-			<img src="https://www.cs.usfca.edu/~galles/cs245/dijkstra/fig2.jpg" style="width: 100%; margin-left: 15%">
-			<center><h1>Visual representation</h1></center>
-		</div>
-		<div style="float: left; width: 40%; margin-left: 4%; min-width: 420px;">
-	  	  <ol>
-			<li>Supporting data structures</li>
-			<ul>
-				<li>Adjacency List</li>
-					<ul>
-						<li>A two dimensional array of linked list for storing edges (between cities) and edge cost</li>
-					</ul>
-				<li>HashTable</li>
-					<ul>
-						<li>A simple implementation of hashing using open hashing with seperate chaining for collision handling</li>
-					</ul>
-				<li>Dijstra's Table</li>
-					<ul>
-						<li>A simple two dimensional array of size 2 times the number of cities</li>
-					</ul>
-			</ul>
-			
-			<li>Binomial Queue</li>
-			<ul>
-				<li>Our primary data structure for keeping track of the next available edges as well as the next cheapest edge available</li>
-					<ul>
-						<li>As a try hard student, this was not a project to start at the last minute. For each method add/removeMin/updateCost, at least two real days
-							 were spent perfecting a solution</li>
-					</ul>
-				<li>A helpful, interactive visual representation can be found <a href="http://www.cs.usfca.edu/~galles/visualization/BinomialQueue.html">here</a>(helped me tons)</li>
-			</ul>
-			
-			<li>Dijstra's</li>
-			<ul>
-				<li>This part added multithreading functionality to our existing framework.</li>
-				<li>Our classes for parsing text files in proj1 and looking up queries in proj2 were extended to support using Java's own thread class to make our whole project more efficient.</li>
-			</ul>
-
-		  </ol>
-		  
-		  A link to the class prompt can be found <a href="https://www.cs.usfca.edu/~galles/cs245/dijkstra/DijkstraS16.html">here</a>
-	  
-	  </div>
-	  
-	  
-  	  <div style="margin-left: 28%; margin-top: 30px; width: 100%; float: left;">
-		  <span>Source code can be found on</span>
-		  <a href="https://github.com/jpezninjo/Search-Engine">
-			<img class="github-icon"; src="http://i.imgur.com/1gzkEM0.png" alt="logo_github.png">
-		  </a>
-	  </div>
-	  </div>
-	</div><!--end ec-->
-	
-	
-
-
-  </div><!-- end e section-->
-   <div id="d">
-    <br>
-    <h2 class="centerText">Resume </h2>
-    <br>
-
-    <div id="da">
-      Education
-      <br>
-      <div style="width: 50%;">
-        <hr style="margin-top: 15px;">
-      </div>
-      <br>
-      <br><b>University of San Francisco
-      <br>B.S. Computer Science</b>
-      <br>2014-2017
-      <br>University Scholar
-      <br><em>Relevent Coursework:</em>
-      <ul>
-        <li>Introduction to Computer Science I/II</li>
-        <span>python</span><span>kivy</span>
-        <span>java</span>
-        <br>
-        <span>apache svn </span>
-        <li>Parallel Programming</li>
-        <span>c</span><span>MPI</span><span>CUDA</span>
-        <li>Software Developement</li>
-        <span>java</span><span>git</span><span>jetty server</span>
-        <br><span>junit</span><span>json</span><span>sql</span>
-        <li>Data Structures and Algorithms</li>
-        <span>java</span>
-        <li>Discrete Mathamatics</li>
-        <li>Linear Algebra and Probability</li>
-        <span>LaTeX</span><span>processing</span>
-      </ul>
-
-
-      </div>
-      <div id="db">
-        Skillset
-		<div style="width: 50%;">
-			<hr style="margin-top: 15px;">
-		</div>
-        <br>
-		
-		<div style="width: 55%">
-		<span >I</span>n my course work I've come to become very familiar with multiple programming languages, libraries, and tools.
-		My bread and butter language would be Java, as it is what I've done the majority of my course work in. At the very least, I have working knowledge of all
-		tools and languages listed here.
-		
-		</div>
-		
-		<br>
-		
-		<div>
-		
-        <div class="skillsdiv">
-          <ul>
-            <li>Python</li>
-            <li>Java</li>
-            <li>C</li>
-          </ul>
-        </div>
-		
-        <div class="skillsdiv">
-          <ul>
-            <li>HTML 5</li>
-            <li>CSS3/SASS</li>
-            <li>Javascript</li>
-          </ul>
-        </div>
-		
-		<div class="skillsdiv">
-          <ul>
-            <li>jQuery</li>
-            <li>Angular</li>
-            <li>CoffeeScript</li>
-          </ul>
-        </div>
-		
-		<div class="skillsdiv">
-          <ul>
-            <li>Git/Github</li>
-            <li>Apache SVN</li>
-            <li>AWS</li>
-          </ul>
-        </div>
-		
-		</div>
-		
-		<div>
-		
-		<div class="skillsdiv">
-          <ul>
-            <li>AJAX</li>
-            <li>Node.js</li>
-            <li>PHP</li>
-          </ul>
-        </div>
-		
-        <div class="skillsdiv" style="margin-right: 20%">
-          <ul>
-            <li>Processing</li>
-            <li>Adobe Photoshop/Flash</li>
-            <li>Microsoft Word/Excel</li>
-          </ul>
-        </div>
-		
-		</div>
-		
-		<br>
-		
-	</div><!--end db-->
-	<div id="dc">
-		<div style="width: 100%; float: left; padding-top: 80px;">
-		
-		    Values
-			
-			<div style="width: 50%;">
-				<hr style="margin-top: 15px;">
-			</div>
-			
-			<div style="width: 55%">
-				<span>A</span>s I come closer and closer to receiving my B.S. in Computer Science, I've been doing alot of research and have come to understand that the 
-				following are not only key but essential to being an extraordinary programmer,
-			</div>
-			<br>
-			<div class="skillsdiv">
-				<ul><u>A good coder has:</u>
-					<li>Strong communication skills</li>
-					<li>Analytical and problem solving</li>
-					<li>Leadership and mentor skills</li>
-				</ul>
-			</div><!-- First skills list-->
-			
-			<div class="skillsdiv" style="border-left: 1px solid #6D6E6B; margin-left: -50px; margin-top: 20px">
-				<ul><u>A good coder can:</u>
-					<li>Multi-task and juggle tasks of varying priority</li>
-					<li>Thrive in team-oriented environment</li>
-					<li>Work efficiently and remain calm under pressure</li>
-					<li>Break their own code in order to improve it</li>
-					<li>Enjoy their work and take a break when its necessary</li>
-				</ul>
-			</div><!-- Second skills list-->
-		
-		</div>
-		</div>
-		
- 
-
-      <div id="dd">
-	  
-	    Goals
-		<div style="width: 50%;">
-			<hr style="margin-top: 15px;">
-		</div>
-        <br>
-		<div style="width: 40%; text-align: center; padding-left: 3%;">
-		<span>C</span>urrently looking for intership opportunities with any reputable company 
-		that will allow me to expand my knowledge on any of the following fields:
-		</div>
-		<br>
-		<div style="float: left; padding-left: 3%;">
-        Major interests
-        <ul>
-			<li>Artificial Intelligence</li>
-			<li>Gaming engineering</li>
-			<li>Web design</li>
-		</ul>
-		</div>
-		<div style="float: left">
-		Minor interests:
-        <ul>
-			<li> Generative Design</li>
-			<li> Crytography</li>
-			<li> Cyber Security</li>
-
-        </ul>
-		</div>
-		
-		
-		<!--really sloppy way to make <hr> positioned below the above content-->
-		<div style="float: left; width: 100%; position: relative">
-		
-			<br><br><br><br><br>
-			
-			<div style="width: 50%;  position:absolute; bottom:0;">
-				<hr style="margin-top: 15px;">
-				
-			</div></div>
-			
-	
-      </div><!--end dd -->
-
-	  <div style="height: 36px; bottom: 0; float: left;">
-		<a name="projects"></a>
-	  </div>
-    </div><!-- end d section-->
-
-  
-  <div id="f">
-  
-  <div class="icons">
-
-	<a href="https://github.com/jpezninjo"><img src="googlePlusIcon.jpg"></a>
-	<a href="https://www.reddit.com/user/joopez1/"><img src="redditIcon.jpg"></a>
-	
-	  <a href="https://github.com/jpezninjo"><img src="githubIcon.png"></a>
-	<a href="https://github.com/jpezninjo"><img src="facebookIcon.jpg"></a>
-	<a href="https://github.com/jpezninjo"><img src="twitterIcon.jpg"></a>
-  </div>
-  
-  
-  <br>
-  &copy Joseph Perez 2016
-  
-  
-  </div>
 
 </body>
