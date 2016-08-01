@@ -8,6 +8,7 @@
         <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
         
         <link rel="stylesheet" type="text/css" href="loading.css">
+        <link rel="stylesheet" type="text/css" href="smooth-scroll.js">
         <link rel="stylesheet" type="text/css" href="tooltip.css">
         <link rel="stylesheet" type="text/css" href="progressbar.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -73,9 +74,9 @@
             }
 
             body {
-                background-color: tan;
                 background-size: cover;
                 background-repeat: no-repeat;
+                //overflow: hidden;
             }
             
             #ba > div, #bb{
@@ -191,11 +192,10 @@
             #b{
                 position: relative;
                 float: left;
-                min-height: 950px;
+                min-height: 400px;
                 background: linear-gradient(skyblue, white);
                 padding-top: 2em;
                 border-top: 1px solid black;
-                padding-bottom: 2em;
                 width: 100%;
             }
             
@@ -210,6 +210,13 @@
                 box-shadow: 0 5px 5px #333333;
             }
             
+            
+            @media (min-width: 1100px) {
+              #content-container {
+                min-width: 1100px;
+              }
+            }
+            
             #content-header{
                 float: center;
                 width: 100%;
@@ -221,9 +228,11 @@
             
             #nav-bar{
                 float: left;
+                height: 100%;
+                min-height: 600px;
                 width: 19%;
                 background-color: whitesmoke;
-                border-left: 5px solid black;
+                border-right: 5px solid black;
             }
             
             #top-level-container{
@@ -234,17 +243,9 @@
                 width: 50%;
             }
             
-            #content-container{
-                padding-bottom: 50px;
-            }
-            
-            #content{
-                float: right;
-                width: 79%;
-                background: url('linedpaper.png') repeat;
-                min-height: 500px;
-                padding: 3% 2%;
-                line-height: 150%;
+            #content-container iframe{
+                width: 100%;
+                height: 100%;
             }
             
             #content-header h6{
@@ -253,52 +254,18 @@
                 font-weight: bold;
             }
             
-            #content ol{
-                margin-left: 50px;
-                //font-size: 24px;
-            }
-            
-            #content li{
-                margin-top: .5em;
-            }
-            
-            #content ul{
-                margin-bottom: 15px;
-            }
-            
-            #content ul li{
-                margin-left: 50px;
-	           //font-size: 18px;
-	           //line-height: 20px;
-            }
-            
-            #content ul ul li{
-                font-size: inherit;
-                margin-left: 75px;
-                margin-top: .25em;
-                line-height: normal;
-            }
-            
-            #content > span{
-                font-weight: bold;
-            }
-            
-            #content ol span{
-                font-weight: bold;
-            }
-            
             .first-letter{
                 font-size: 150%;
             }
             
             #page-footer{
-                position: absolute; 
                 padding-top: 5em;
                 padding-bottom: 5em;
                 text-align: center;
                 bottom: 0;
                 float: left;
                 width: 100%;
+                float: left;
             }
             
         </style>
@@ -314,7 +281,7 @@
             </div>
                 <nav id="primary_nav_wrap" class="unhideable">
                     <ul>
-                        <li> <a id="home-link" href="./index.html"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
+                        <li> <a id="home-link" href="./home.html"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
                         <li><a id="about-me-link" class="top-level-menu-item" href="./about-me.html"><img src="http://aumentada.net/wp-content/uploads/2015/05/user.png">About Me</a></li>
                         <li><a style="border-top: 2px solid black;" id="portfolio-link" href="./portfolio.html"><img src="http://image.flaticon.com/icons/svg/149/149830.svg">Portfolio</a></li>
                         <li><a id="contact-me-link" href="./contact-me.html"><img src="http://image.flaticon.com/icons/svg/9/9556.svg">Contact Me</a></li> 
@@ -325,139 +292,18 @@
             <div id="content-container">
             
                 <div id="content-header"><h6>Portfolio</h6></div>
-                <div id="nav-bar">
+                <iframe src="portfolio_inner.html"></iframe>
               
-                </div>
-                
-                
-                <div id="content">
-                    <span>
-                    Name: Search Engine<br>
-                    Date: September 2015-December 2015<br>
-                    Subject: CS212 Software Development<br>
-                    </span>
-                    <br>
-                    <br>
-                    <br>
-                    For my Software Development class, we learned the basis of creating, testing, debugging, and reviewing large scale programs. This particular project can be broken up into 5 smaller projects, consisting of:
-                    <br><br>
-                    <ol>
-                        <li>Implementing an <span>inverted data structure</span> and a basic file-to-database parsing code for local files</li>
-                        <li>Implementing <span>partial search</span> functionality on our database given a query of x amount of words, and returning results in a ranked order</li>
-                        <li>Implement <span>multithreaded</span> capabilities- an extension of the project so far that utlitizes native Java threads to allow efficient parsing/searching</li>
-                        <li>Implement <span>web crawling</span> capabilities, allowing our program to request web pages, followed by a parse for nested links, followed by the parsing of non-html code</li>
-                        <li>Implement Eclipse's Jetty Server/Servlet API which allowed my to launch my program as a <span>local server</span>, complete with a front-end web page</li>
-                    </ol>
-                    
-                    <br><br>
-                    
-                    <hr>
-                    <br>
-                    <span>
-                    Name: Network, a Board Game<br>
-                    Date: May 2016<br>
-                    Subject: CS245 Data Structures and Algorithms<br>
-                    </span>
-                    <br>
-                    <br>
-                    <br>
-                    An extra credit project (and done because I was out of things to do as the semester was wrapping up), this project had me implement the game of Network by Sid Sackson featured in his book A Gamut of Games. The project consisted of
-                    
-                    <ol>
-                        <li><span>Game Design</span></li>
-                        <ul>
-                            <li>Originally I had a seperate master board with two input controllers for getting player/AI move input and doing move validation</li>
-                            <li>I settled on using a 8x8 2-D integer array and used 0, 1, and 2 to represent checker pieces or empty space</li>
-                            <li>For the sake of simplicity in implementing a board, driver, human player, and computer player class, I settled on using three seperate
-                             board objects, with each player having their own instance for move validation and, for the AI, move tracking</li>
-                        </ul>
-
-                        <li><span>Implementation of Rules</span></li>
-                        <ul>
-                            <li>For a 8x8, that's 64 different move spots</li>
-                            <li>The four corners are off limits to both players, and both players have "goal" sides of the board that their opponent cannot play in</li>
-                            <li>The second most difficult thing to implement was to disallow clusters</li>
-                            <ul>
-                                <li>moves with n-neighbors in any of its 8 adjacent spots form a cluster of n
-                             plus any clusters formed by those neighbors</li>
-                            </ul>
-                            <li>The hardest implementation was the detection of Networks</li>
-                            <ul>
-                                <li>a network is a series of same-team moves connected diagonally/vertically/horizontally</li>
-                                <li>Connections cannot have pieces in between</li>
-                                <li>Three connections cannot be in the same cardinal</li>
-                            </ul>
-                        </ul>
-
-                        <li><span>Computer AI</span></li>
-                        <ul>
-                            <li>This part was never 100% completed.</li>
-                            <li>I tried utilizing a min-max decision tree and to some extend, the computer player AI was capable to trying to win</li>
-                            <li>I was able to witness the behavior in later stages of the AI blocking moves that would've granted me, the opponent, victory</li>
-                        </ul>
-                    </ol>
-
-                    <br><br>
-                    
-                    <hr>
-                    <br>
-                    <span>
-                    Name: Dijstra's Algorithm, Round 2 ft. Binomial Queue<br>
-                    Date: April 2016<br>
-                    Subject: CS245 Data Structures and Algorithms<br>
-                    </span>
-                    <br>
-                    <br>
-                    <br>
-                    This class project required the use of a variety of data structures and was basically a final "GLHF" nightmare to end the semester. I thoroughly enjoyed the sheer amount of hardships and logic handling present in implementing a binomial queue. This project can be broken up into the following:
-                    
-                    <ol>
-			             <li>Supporting data structures</li>
-                            <ul>
-                                <li>Adjacency List</li>
-                                    <ul>
-                                        <li>A two dimensional array of linked list for storing edges (between cities) and edge cost</li>
-                                    </ul>
-                                <li>HashTable</li>
-                                    <ul>
-                                        <li>A simple implementation of hashing using open hashing with seperate chaining for collision handling</li>
-                                    </ul>
-                                <li>Dijstra's Table</li>
-                                    <ul>
-                                        <li>A simple two dimensional array of size 2 times the number of cities</li>
-                                    </ul>
-                            </ul>
-			             <li>Binomial Queue</li>
-			         <ul>
-			         	<li>Our primary data structure for keeping track of the next available edges as well as the next cheapest edge available</li>
-                            <ul>
-                                <li>As a try hard student, this was not a project to start at the last minute. For each method add/removeMin/updateCost, at least two real days
-                                     were spent perfecting a solution</li>
-                            </ul>
-                        <li>A helpful, interactive visual representation can be found <a href="http://www.cs.usfca.edu/~galles/visualization/BinomialQueue.html">here</a></li>
-			         </ul>
-			
-			         <li>Dijstra's</li>
-                        <ul>
-                            <li>This part added multithreading functionality to our existing framework.</li>
-                            <li>Our classes for parsing text files in proj1 and looking up queries in proj2 were extended to support using Java's own thread class to make our whole project more efficient.</li>
-                        </ul>
-                    </ol>
-
-                    
-                    
-                    
-                </div><!--end content-->
                 
             
             </div><!--end content-container-->
             
-            
-            
-            
             <div id="page-footer">
                 &#169; Joseph Perez 2016
             </div>    
+            
+            
         </div><!--end b-->
+        
     </body>
 </html>

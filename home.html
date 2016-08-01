@@ -1,147 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="ahttp://www.w3schools.com/lib/w3.css">
+    <head>        
+        <title>Joseph Perez's Portfolio Site</title>
         
+        <meta name="description" content="Joseph Perez's Portfolio Site">
+        <meta name="keywords" content="computer science, portfolio, cs, college student, coursework, personal site">
         
+        <!--Google Fonts-->
         <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
         
+        <!--CSS-->
         <link rel="stylesheet" type="text/css" href="loading.css">
         <link rel="stylesheet" type="text/css" href="tooltip.css">
         <link rel="stylesheet" type="text/css" href="progressbar.css">
+        
+        <!--JavaScript-->
+        <script src="smooth-scroll.js"></script>
+        
+        <!--Libraries/Frameworks-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         
-        <script>
-            
-            
-            $(document).ready(function(){
-                $(".unhideable").hide();
-                $(".working-on-sub").hide();
-                $("#o").hide();
-                $("#b").hide();
-                $(".sk-fading-circle").hide();
-
-                $("#logo").click(goHome);
-
-                $("a").on('click', function(event) {
-                    // Make sure this.hash has a value before overriding default behavior
-                    if (this.hash !== "") {
-                      // Prevent default anchor click behavior
-                      event.preventDefault();
-                      // Store hash
-                      var hash = this.hash;
-                      // Using jQuery's animate() method to add smooth page scroll
-                      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                      $('html, body').animate({
-                          scrollTop: $(hash).offset().top
-                      }, 800, function(){
-                          // Add hash (#) to URL when done scrolling (default click behavior)
-                          window.location.hash = hash;
-                      });
-                    }// End if
-                });
-                
-                
-                $(".working-on").click(function(){
-                    console.log("log");
-                   $(this).find(".working-on-sub").fadeToggle();
-                });
-                
-                
-                
-                $("#about-me-link").click(function(){
-                   $("#baa, #bba, #blog-header, .blog-entry, #bb").fadeToggle();
-                    $("#b").css({"height" : "100%", "width" : "100%"});
-                });
-                
-            });         
-
-
-            function scrollableElement(els) {
-                for (var i = 0, argLength = arguments.length; i <argLength; i++) {
-                    var el = arguments[i],
-                      $scrollElement = $(el);
-                    if ($scrollElement.scrollTop()> 0) {
-                        return el;
-                    } else {
-                        $scrollElement.scrollTop(1);
-                        var isScrollable = $scrollElement.scrollTop()> 0;
-                        $scrollElement.scrollTop(0);
-                            if (isScrollable) {
-                                return el;
-                            }
-                        }
-                    }
-                return [];
-            }
-
-            var into_sentence = "Mom said I wasn't a website expert";
-            var intro2 = ", so &nbsp;I &nbsp;proved &nbsp;her &nbsp;wrong";
-            var i = 0;
-            var contents = "";
-            var interval2;
-
-            var intro_event = setTimeout(displayIntro1, 2000);
-
-            function displayIntro1(){
-                var interval = setInterval(function(){
-                    if(!into_sentence.charAt(i)){
-                        clearInterval(interval);
-                        i = 0;
-                        setTimeout(function(){  
-                            interval2 = setInterval(function(){
-                                if(!intro2.charAt(i)){
-                                    clearInterval(interval2);
-                                    goHome();
-                                }else{
-                                    if(intro2.charAt(i) == '&'){
-                                        console.log("spam");
-                                        i += 6;
-                                    }else{
-                                        contents += intro2.charAt(i++);
-                                        document.getElementById("intro-text-2").innerHTML = '"' + contents + '"';
-                                    }     
-                                }
-                            }, 25);
-                        }, 1500)
-                    }else{
-                        if(into_sentence.charAt(i) == '&'){
-                            console.log("spam");
-                            i += 6;
-                        }else{
-                            contents += into_sentence.charAt(i++);
-                            document.getElementById("intro-text-2").innerHTML = '"' + contents + '"';
-                        }
-                    }
-                }, 25);
-            }
-
-
-            function goHome(){
-                setTimeout(function(){  
-                    $(".sk-fading-circle").fadeToggle();
-                }, 500);
-
-                setTimeout(function(){  
-                    $("#a").slideToggle(function(){
-                        $(".unhideable").slideToggle();
-                    });
-                    $("#o").slideToggle();
-                    $("#b").slideToggle();
-                    setTimeout(function(){  
-                        $("body").css("overflow-y", "scroll");
-                    }, 500);
-                }, 1500);
-                
-                clearInterval(intro_event);
-                
-                //THIS IS SO COOL
-                goHome = function(){}; 
-            }
-
-
-        </script>
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
 
         <style>
             h1, h2, h3, h4, h5, h6 {
@@ -155,7 +38,6 @@
                 background-color: tan;
                 background-size: cover;
                 background-repeat: no-repeat;
-                overflow-y: hidden;
             }
             
             .current-page-a{
@@ -444,39 +326,12 @@
                 </div>
                 <nav id="primary_nav_wrap" class="unhideable">
                     <ul>
-                        <li class="current-page-li"> <a style="border-top: 2px solid black;" id="home-link" href="./home.html"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
+                        <li class="current-page-li"> <a style="border-top: 2px solid black;" id="home-link" href="./index.html"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
                         <li><a id="about-me-link" class="top-level-menu-item" href="./about-me.html"><img src="http://aumentada.net/wp-content/uploads/2015/05/user.png">About Me</a></li>
                         <li><a id="portfolio-link" href="./portfolio.html"><img src="http://image.flaticon.com/icons/svg/149/149830.svg">Portfolio</a></li>
                         <li><a id="contact-me-link" href="./contact-me.html"><img src="http://image.flaticon.com/icons/svg/9/9556.svg">Contact Me</a></li> 
                     </ul>
                 </nav>
-            </div>
-
-            <div class="center-wrapper" id="a" class="hideable">    
-                <div class="centered">
-                    <div class="tooltip" style="width: auto; height: auto;">
-                        <span class="tooltiptext" style="float: center;">Enter the site already</span>
-                        <img id="logo" src="logo2.png" style="height: 5em; float: center">
-                    </div>
-                    <div style="color: #529ECC; float: center">
-                        <section style="float: left;"><span id="intro-text-2"></span></section>
-                    </div>
-
-                    <div class="sk-fading-circle">
-                        <div class="sk-circle1 sk-circle"></div>
-                        <div class="sk-circle2 sk-circle"></div>
-                        <div class="sk-circle3 sk-circle"></div>
-                        <div class="sk-circle4 sk-circle"></div>
-                        <div class="sk-circle5 sk-circle"></div>
-                        <div class="sk-circle6 sk-circle"></div>
-                        <div class="sk-circle7 sk-circle"></div>
-                        <div class="sk-circle8 sk-circle"></div>
-                        <div class="sk-circle9 sk-circle"></div>
-                        <div class="sk-circle10 sk-circle"></div>
-                        <div class="sk-circle11 sk-circle"></div>
-                        <div class="sk-circle12 sk-circle"></div>
-                    </div>
-                </div>
             </div>
         </div>
     
@@ -557,7 +412,7 @@
                         I've never met him in real life, don't know what he looks like. I just know three things: he's from Denmark.
                         We're about the same age. And we both have similar interest in games. Oh and we're both chill as hell.
                          <br>   	<br>   	<br>
-                        <a href="#">View All Posts</a>(jk have yet to make a blog home)
+                        <a href="#o">View All Posts</a>(jk have yet to make a blog home)
                         <hr>
                     </article>
                 </div>
@@ -629,7 +484,7 @@
 	</div>
 
     <div id="page-footer">
-            &#169; Joseph Perez 2016
+        <a href="#o">&#169; Joseph Perez 2016</a>
     </div>
             
 </div>

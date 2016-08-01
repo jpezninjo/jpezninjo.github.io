@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="ahttp://www.w3schools.com/lib/w3.css">
+        
+        
+        <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" type="text/css" href="loading.css">
+        <link rel="stylesheet" type="text/css" href="tooltip.css">
+        <link rel="stylesheet" type="text/css" href="progressbar.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        
+        <script>
+            
+            
+            $(document).ready(function(){
+                $(".working-on-sub").hide();
+                
+                
+                $("#mid-level-design").hide();
+
+                $("a").on('click', function(event) {
+                    // Make sure this.hash has a value before overriding default behavior
+                    if (this.hash !== "") {
+                      // Prevent default anchor click behavior
+                      event.preventDefault();
+                      // Store hash
+                      var hash = this.hash;
+                      // Using jQuery's animate() method to add smooth page scroll
+                      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                      $('html, body').animate({
+                          scrollTop: $(hash).offset().top
+                      }, 800, function(){
+                          // Add hash (#) to URL when done scrolling (default click behavior)
+                          window.location.hash = hash;
+                      });
+                    }// End if
+                });
+                
+                
+                $("#about-me-link").click(function(){
+                   $("#baa, #bba, #blog-header, .blog-entry, #bb").fadeToggle();
+                    $("#b").css({"height" : "100%", "width" : "100%"});
+                });
+                
+                $(".top-level-nav").click(function(){
+                   if($(this).hasClass("current-nav")){
+                   }else{
+                       $(".top-level-nav").removeClass("current-nav");
+                       $(this).addClass("current-nav");
+                       
+                       $(".bottom-level-nav").slideUp(function(){
+                           if($(this).is(document.getElementById("top-level-code"))){
+                               $("#bottom-level-coursework").addClass("current-nav");
+                                $("#mid-level-design").fadeToggle(100);
+                               setTimeout(function(){
+                                   $("#mid-level-code").fadeToggle();
+                               }, 250);
+                           }else{
+                               $("#bottom-level-game").addClass("current-nav");
+                               $("#mid-level-code").fadeToggle(100);
+                                setTimeout(function(){
+                                    $("#mid-level-design").fadeToggle();
+                               }, 250);
+                           }
+                       });
+         
+
+                   }
+                });
+                
+                $(".mid-level-nav").click(function(){
+                   if($(this).hasClass("current-nav")){
+                   }else{
+                       console.log("testcode");
+                       $(".mid-level-nav").removeClass("current-nav");
+                       
+                       $(this).addClass("current-nav");
+                       
+                       $(".bottom-level-nav").hide();
+                       
+                       if($(this).is(document.getElementById("mid-level-coursework"))){
+                           console.log("batman");
+                           $("#bottom-level-coursework").show();
+                       }else if($(this).is(document.getElementById("mid-level-self-projects"))){
+                           console.log("batman2");
+                           $("#bottom-level-self-projects").show();
+                       }else if($(this).is(document.getElementById("mid-level-snippets"))){
+                           console.log("batman3");
+                            $("#bottom-level-snippets").show();  
+                       }else if($(this).is(document.getElementById("mid-level-game"))){
+                           $("#bottom-level-game").show();
+                       }else if($(this).is(document.getElementById("mid-level-graphic"))){
+                            $("#bottom-level-graphic").show();
+                       }else if($(this).is(document.getElementById("mid-level-web"))){
+                            $("#bottom-level-web").show();
+                       }else{
+                           console.log("something went wrong...error#141")
+                       }
+                   }
+                });
+                
+                
+            });         
+
+
+            function scrollableElement(els) {
+                for (var i = 0, argLength = arguments.length; i <argLength; i++) {
+                    var el = arguments[i],
+                      $scrollElement = $(el);
+                    if ($scrollElement.scrollTop()> 0) {
+                        return el;
+                    } else {
+                        $scrollElement.scrollTop(1);
+                        var isScrollable = $scrollElement.scrollTop()> 0;
+                        $scrollElement.scrollTop(0);
+                            if (isScrollable) {
+                                return el;
+                            }
+                        }
+                    }
+                return [];
+            }
+            
+        </script>
+
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Corben', Georgia, Times, serif;
+            }
+            article, span, p, div {
+                font-family: 'Nobile', Helvetica, Arial, sans-serif;
+            }
+
+            body {
+                background-color: tan;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            
+            #ba > div, #bb{
+                box-shadow: 0 5px 5px #333333;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav {
+                bottom: .8em;
+                position: absolute;
+                right: 0;
+            }
+
+            #primary_nav_wrap{
+                float: right;
+                margin: 15px 3.5% 0 0;
+            }
+            
+            #primary_nav_wrap img{
+                height: 1.25em;
+                margin-right: 0.45em;
+                margin-bottom: -0.1em;
+            }
+            
+            #primary_nav_wrap img:hover{
+                filter: gray;
+            }
+
+
+            #primary_nav_wrap ul {
+                list-style:none;
+                position:relative;
+                float:left;
+                margin:0;
+                padding:0
+            }
+
+            #primary_nav_wrap ul a {
+                display:block;
+                color:#333;
+                text-decoration:none;
+                font-weight:700;
+                font-size:16px;
+                line-height:32px;
+                padding: 0 15px;
+                margin-right: 5px;
+                //font-family: Futura, "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+                border-bottom: 2px solid black;
+            }
+
+            #primary_nav_wrap ul li {
+                position:relative;
+                float:left;	
+            }
+
+            #primary_nav_wrap ul li.top-level-menu-item {
+                background:#ddd
+
+            }
+
+            #primary_nav_wrap ul a {
+                line-height: 50px;
+                border-top: 2px solid rgba(255, 255, 255, 0.0);
+            }
+
+            ul a {
+                padding-right: 16px;
+                padding-left: 16px;
+                display: block;
+                text-decoration: none;
+                font-family: Georgia, "Times New Roman", Times, serif;
+                font-size: 21px;
+                color: #371C1C;
+            }
+
+            #primary_nav_wrap ul a:hover {
+                color: #FFF;
+                border-top: 2px solid black;
+            }
+
+            ul a:hover {
+                color: #529ECC;;
+                2px solid black;
+            }
+
+            .center-wrapper{
+                text-align: center;
+            }
+
+            .centered{
+                display: inline-block;
+            }
+
+            #o{
+                width: 100%;
+                height: 100px;
+                position: relative;
+                background-color: tan;
+                background: radial-gradient(#3f6077, #253947);
+            }
+
+            #oa{
+                padding-left: 33%;
+                padding-top: 2em;
+                abackground-color: #fafafa;
+            }
+
+            #oa span{
+                font-family: 'Montserrat', sans-serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                text-align: center;
+                color: whitesmoke;
+                line-height: 50px;
+                font-size: 25px;
+            }
+
+            #b{
+                position: relative;
+                float: left;
+                min-height: 950px;
+                background: linear-gradient(skyblue, white);
+                padding-top: 2em;
+                border-top: 1px solid black;
+                padding-bottom: 2em;
+                width: 100%;
+            }
+            
+            #ba{
+                border-radius: 25px 25px 0 0;
+                border: 4px solid grey;
+                //min-width: 20em;
+                //width: 19%;
+                min-width: 60%;
+                float: left;
+                //padding: 2% 2%;
+                margin-right: 20px;
+                background-color: whitesmoke;
+                min-height: 50em;
+                box-shadow: 0 5px 5px #333333;
+                font-family: 'Nobile', Helvetica, Arial, sans-serif;
+                overflow: hidden;
+                margin: 0 20%;
+            }
+            
+            #baa{
+                min-height: 2em;
+                width: 100%;
+                //font-size: 18px;
+                text-align: center;
+                color: whitesmoke;
+                //font-weight: bold;
+                padding-top: 5%;
+                background: radial-gradient(#3f6077, #253947);
+            }
+            
+            #bb{
+                float: left;
+                width: 79%;
+                
+            }
+            
+            #nav-container{
+                min-width: 20em;
+                width: 19%;
+                border-right: 4px solid grey;
+                //box-shadow: 0 5px 5px #333333;
+                float: left;
+                overflow: hidden;
+            }
+            
+            .top-level-nav{
+                border: 1px solid black;
+                width: 49.3%;
+                float: left;
+            }
+            
+            .mid-level-nav{
+                border: 1px solid black;
+                width: 32.5%;
+                float: left;
+            }
+            
+            .mid-level-nav li{
+                list-style-type: none;
+            }
+            
+            .mid-level-nav h3{
+                font-size: 12px;
+            }
+            
+            .current-nav{
+                background: radial-gradient(#3f6077, #253947);
+                //background-color: dimgray;
+                color: whitesmoke;
+            }
+            
+            .top-level-nav, .mid-level-nav{
+                cursor: pointer;
+                padding-top: 2%;
+                padding-bottom: 2%;
+                background-color: grey;
+                text-align: center;
+            }
+            
+             .top-level-nav:hover, .mid-level-nav:hover{
+                 //background: none;
+                background-color: dimgray;
+                 color: whitesmoke;
+            }
+            .bottom-level-nav{
+                float: left;
+            }
+            
+            .bottom-level-nav span{
+                display: block;
+                cursor: pointer;
+                width: 100%;
+                line-height: 120%;
+                padding: .125em .25em;
+            }
+            
+            .bottom-level-nav span:hover{
+                color: whitesmoke;
+                background-color: darkblue;
+            }
+            
+            .work{
+                float: left;
+                display: inline-block;
+                width: 30%;
+                margin-right: 3%;
+                text-align: left;
+                line-height: 140%;
+                margin-bottom: 30px;
+            }
+            
+            .first-letter{
+                font-size: 150%;
+            }
+            
+            .portfolio-pagelet{
+                width: 60%;
+                float: left;
+                height: 50em;
+                background-color: darkslategrey;
+                box-shadow: 0 5px 5px #333333;
+                border: 4px solid grey;
+                padding: 20px;
+            }
+            
+            .portfolio-pagelet ul{
+                font-size: 24px;
+            }
+            
+            .portfolio-pagelet li{
+                font-size: 18px;
+                line-height: 20px;
+            }
+            #page-footer{
+                position: absolute; 
+                padding-top: 5em;
+                padding-bottom: 5em;
+                text-align: center;
+                bottom: 0;
+                float: left;
+                width: 100%;
+            }
+            
+        </style>
+
+    </head>
+
+
+
+    <body>
+        <div id="o">
+            <div id="oa" class="unhideable">
+                <span>Joseph Perez</span>
+            </div>
+            <nav id="primary_nav_wrap" class="unhideable">
+                <ul>
+                    <li> <a id="home-link" href="#"><img src="http://image.flaticon.com/icons/svg/25/25694.svg">Home</a></li>
+                    <li><a id="about-me-link" class="top-level-menu-item" href="#"><img src="http://aumentada.net/wp-content/uploads/2015/05/user.png">About Me</a></li>
+                    <li><a id="portfolio-link" href="#"><img src="http://image.flaticon.com/icons/svg/149/149830.svg">Portfolio</a></li>
+                    <li><a id="contact-me-link" href="#"><img src="http://image.flaticon.com/icons/svg/9/9556.svg">Contact Me</a></li> 
+                </ul>
+            </nav>
+        </div>
+        <div id="b" name="b">
+
+            
+            
+            
+            
+            
+            <div id="ba">
+                
+                <div id="baa">
+                    <h2>Portfolio</h2>
+                    <hr>
+                </div>
+
+                <div id="nav-container">
+                
+                <div id="top-level-code" class="top-level-nav current-nav"><a><h3>Code</h3></a></div>
+                <div id="top-level-design" class="top-level-nav"><a><h3>Design</h3></a></div>
+                
+                <section id="mid-level-code">
+                    <div id="mid-level-coursework" class="mid-level-nav current-nav"><a><h3>Coursework</h3></a></div>
+                    <div id="mid-level-self-projects" class="mid-level-nav"><a><h3>Self Projects</h3></a></div>
+                    <div id="mid-level-snippets" class="mid-level-nav"><a><h3>Snippets</h3></a></div>
+
+                    <div id="bottom-level-coursework" class="bottom-level-nav">
+                        <h4>Java</h4>
+                        <span>Dijstra's Algorithm</span>
+                        <span>Huffman Compression</span>
+                        <span>Network by Sidney Something</span>
+                        <span>Persistent Data Structures</span>
+                        <span>Search Engine</span>
+                        <br>
+                        <span>BlackJack</span>
+                        <span>Image Manipulator</span>
+                        <span>Movie Recommender</span>
+                        <span>Music Player</span>
+                        <span>Slide Show</span>
+
+                        <h4>C</h4>
+                        <span>Bitonic Sort</span>
+                        <span>Conway's Game of Life</span>
+                        <span>Dijstra's Algorithm</span>
+                        <br>
+                        <span>Performance Testing of Mutexes and Semaphores</span>
+
+                        <h4>Python</h4>
+                        <span>Conversion Flask App</span>
+                        <span>Fractal (Generative Design)</span>
+                        <span>Picture Puzzle Kivy App</span>
+                        <span>Stocks Analyzer</span>
+
+                    </div>
+                    
+                    <div id="bottom-level-self-projects" class="bottom-level-nav">
+                        <h4>Data Structures/Algorithms</h4>
+                        <span>Various Data Structures</span>
+                        <h4>Rails</h4>
+                        <span>Rails Chatroom</span>
+                        <h4>Node/Express</h4>
+                        <span>Node/Express Stuff</span>
+                        <h4>Phaser.io</h4>
+                        <span>Phaser.io HTML5</span>
+                        
+                        
+                    </div>
+                    
+                    <div id="bottom-level-snippets" class="bottom-level-nav">
+                        idk what to put here yet
+                    </div>
+                    
+                    
+                </section>
+            
+                <section id="mid-level-design">
+                    <div id="mid-level-game" class="mid-level-nav current-nav"><h3>Game</h3></div>
+                    <div id="mid-level-graphic" class="mid-level-nav"><h3>Graphic</h3></div>
+                    <div id="mid-level-web" class="mid-level-nav"><h3>Web</h3></div>
+                </section>
+            </div>
+            <div id="bb">
+            
+                <div id="search-engine" class="portfolio-pagelet">
+                    WHY IS THIS WRONG
+                    <ol>
+                        <li>Project1 Inverted Index</li>
+                        <ul>
+                        <li>Created an inverted index that mapped word entries to file locations.</li>
+                        <li>Given a directory, parse all nested text files and add entries to index.</li>
+                        <li>Write index to a json file </li>
+                        </ul>
+
+                        <li>Project2 Partial Search</li>
+                        <ul>
+                        <li>Adding onto part 1, given a query of words seperately by whitespace, return all matches from index and output to a json file.</li>
+                        <li>Matches were determined by starting with any of the query words, ex. "a" would yield all words beginning with a.</li>
+                        <li>Matches were then ranked based on number of locations.</li>
+                        </ul>
+
+                        <li>Project3 Multithreading</li>
+                        <ul>
+                        <li>This part added multithreading functionality to our existing framework.</li>
+                        <li>Our classes for parsing text files in proj1 and looking up queries in proj2 were extended to support using Java's own thread class to make our whole project more efficient.</li>
+                        </ul>
+
+                        <li>Project4 Web Crawler</li>
+                        <ul>
+                        <li>In preparation for proj5, project 4 added the ability to use web pages instead of local text files.</li>
+                        <li>Using sockets, we are able to retrieve the whole html of any web address and then strip it clean of html tags.</li>
+                        <li>Additionally, our application would alslso parse any web addresses found within the html (multithreaded, of course).</li>
+                        </ul>
+
+                        <li>Project5 Search Engine</li>
+                        <ul>
+                        <li>Finally, the last part used the Jetty library (link <a href="http://www.eclipse.org/jetty/" target=_blank>here</a>) to launch our application onto local host. This part was essentially the creation of a front-end for our first four projects.</li>
+                        </ul>
+                      </ol>
+                </div>
+            </div>
+                
+            </div>        
+            
+            <div id="page-footer">
+                &#169; Joseph Perez 2016
+            </div>    
+        </div>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+#content{
+    float: left;
+    width: 76%;
+    background: url('linedpaper.png') repeat;
+    min-height: 500px;
+    padding: 3% 2%;
+    line-height: 150%;
+}
+
+#content ol{
+    margin-left: 50px;
+    //font-size: 24px;
+}
+
+#content li{
+    margin-top: .5em;
+}
+
+#content ul{
+    margin-bottom: 15px;
+}
+
+#content ul li{
+    margin-left: 50px;
+   //font-size: 18px;
+   //line-height: 20px;
+}
+
+#content ul ul li{
+    font-size: inherit;
+    margin-left: 75px;
+    margin-top: .25em;
+    line-height: normal;
+}
+
+#content > div > span{
+    font-weight: bold;
+}
+
+#content ol span{
+    font-weight: bold;
+}
