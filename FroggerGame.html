@@ -1,0 +1,184 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Phaser - Making your first game, part 7</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.4/phaser.js"></script>
+	<style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 1200, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.load.image('background', 'field.png');
+    game.load.image('obstacle1', 'obstacle.png');
+    game.load.image('obstacle2', 'obstacle_2.png');
+    game.load.image('player', 'player.png');
+}
+
+var player;
+var sidelines = [0, 800]
+var obstacle_start_left = [250, 500, 750]
+var obstacle_start_right = [375, 625, 875]
+var numLives;
+var style;
+var style2;
+var restart;
+var text;
+    
+function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.minWidth = 320;
+    this.scale.minHeight = 480;
+    this.scale.maxWidth = 768;
+    this.scale.maxHeight = 1152;
+    game.scale.refresh();
+    
+    var background = game.add.sprite(0, 0, 'background');
+
+	
+    player = game.add.sprite(450, 1100, 'player');
+	player.anchor.setTo(.5, .5);
+    player.scale.setTo(.9, .9);
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
+//    player.body.immovable = true;
+    
+    cursors = game.input.keyboard.createCursorKeys();
+    obstacles = game.add.group();
+    slots = game.add.group();
+    
+    numLives = 3;
+    
+    style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+    style2 = { font: "bold 96px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+    text = game.add.text(30, 1150, "Lives: " + numLives, style);
+    restart = 0;
+    stat_msg = 0;
+}
+
+var counter = 0;
+var winners = 0;
+var stat_msg;
+    
+function update() {
+	counter++;
+    
+    var line = 100;
+    if(player.body.position.y <= 100){
+        slots.create(50 + (winners++) * 125, 20, 'player');
+        player.y = 1100;
+    }
+    
+    
+//    console.log(restart)
+    
+    if(restart != 0){
+        if(--restart == 0){
+//            console.log("RABBIT")
+            slots.forEach(function (c) { c.kill(); });
+            player.y = 1100;
+            numLives = 3;
+            text.text = "Lives: " + numLives;
+            stat_msg.destroy();
+            winners = 0;
+        }
+    } else if (numLives == 0){
+        stat_msg = game.add.text(150, 550, "You lose!", style2);
+        restart = 60 * 2;
+    } else if (winners == 6){
+        stat_msg = game.add.text(150, 550, "You win!", style2);
+        restart = 60 * 3;
+    }
+    
+    game.physics.arcade.collide(player, obstacles, function(player, obs){
+        player.y = 1100;
+        player.body.velocity.x = 0;
+        text.text = "Lives: " + --numLives;
+    });
+    
+    var player_speed = 8;
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    {
+        player.x -= player_speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    {
+        player.x += player_speed;
+    }
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+    {
+        player.y -= player_speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
+    {
+        player.y += player_speed;
+    }
+    
+    var left_spawn = 0;
+    if(Math.random() > 0.5){
+        left_spawn = 1;
+    } else{
+        
+    }
+    
+    var seconds = 0.35;
+    
+    if (counter % (60 * seconds) == 0){  
+        x = sidelines[left_spawn]
+        var y;
+        if (left_spawn == 0) {
+            y = obstacle_start_left[Math.floor(Math.random() * obstacle_start_left.length)] - 20
+        } else{
+            y = obstacle_start_right[Math.floor(Math.random() * obstacle_start_right.length)] + 20
+        }
+
+        var obstacle_scale = .18;
+        var obstacle2_scale = .55;
+        var obstacle_speed = 450;
+        var spread = 100;
+
+        for(var i = 0; i < 3; i++){
+            if (left_spawn == 0) {
+                obstacle = obstacles.create(x - spread * i, y, 'obstacle1');
+                obstacle.scale.setTo(obstacle_scale, obstacle_scale);
+                game.physics.arcade.enable(obstacle);
+                obstacle.body.immovable = true;
+                obstacle.body.velocity.x = obstacle_speed;
+            }else{
+                obstacle = obstacles.create(x + spread * i, y, 'obstacle2');
+                obstacle.scale.setTo(-obstacle2_scale, obstacle2_scale);
+    //            obstacle.scale.setTo(1, -1);
+                game.physics.arcade.enable(obstacle);
+                obstacle.body.immovable = true;
+                obstacle.body.velocity.x = -obstacle_speed;
+
+            }
+        }
+    }
+}
+    
+function goFullScreen(){ 
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
+    if (this.game.scale.isFullScreen) { 
+        this.game.scale.stopFullScreen();  
+    } else {
+        this.game.scale.startFullScreen();     
+    }
+}
+    
+</script>
+
+</body>
+</html>
