@@ -106,7 +106,8 @@ function update() {
         player.body.velocity.x = 0;
         text.text = "Lives: " + --numLives;
     });
-    
+    touchscreenInputUpdate();
+
     var player_speed = 8;
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
@@ -169,6 +170,32 @@ function update() {
     }
 }
     
+//Keep this setting variable outside its update variable so it doesn't get called on update()
+var RIGHT = 0, LEFT = 1;
+var touchSpeed = 7.0;
+var control = 2.5;
+    
+    
+//Do both X and Y changes if the point falls within a certain range of X and Y
+//If not, do just Y if 
+function touchscreenInputUpdate(){
+    if (game.input.pointer1.isDown){
+        
+        if(game.input.x > player.position.x){
+            player.position.x += touchSpeed;
+        }
+        if(game.input.x < player.position.x){
+           player.position.x -= touchSpeed;
+        }
+       if(game.input.y > player.position.y){
+            player.position.y += touchSpeed;
+        }
+        if(game.input.y < player.position.y){
+            player.position.y -= touchSpeed;
+        }  
+    }
+}
+
 function goFullScreen(){ 
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
     if (this.game.scale.isFullScreen) { 
@@ -177,6 +204,7 @@ function goFullScreen(){
         this.game.scale.startFullScreen();     
     }
 }
+	
     
 </script>
 
