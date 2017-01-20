@@ -1,0 +1,252 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Alpaca Studios - Football Game</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.4/phaser.js"></script>
+	<style type="text/css">
+        body {
+            margin: 0;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 1200, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+//Load all sprite files into our enginea
+function preload() {
+//    game.load.image('background', 'field.png');
+    game.load.image('background', 'PitchEvery5.jpg');
+    game.load.image('obstacle1', 'obstacle.png');
+//    game.load.image('obstacle2', 'obstacle_2.png');
+    game.load.spritesheet('obstacle2', 'runningTeam.png', 14, 18);
+    game.load.spritesheet('player', 'player.png', 73, 91);
+}
+
+var player;
+var sidelines = [0, 800];
+var obstacle_start_left = [240, 540, 820];
+var obstacle_start_right = [395, 600];
+var numLives;
+var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+var style2 = { font: "bold 96px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+var restart;
+var lives_text;
+var time_text;
+var best_time_text;
+var enemy_spawn_counter = 0;
+var winners = 0;
+var stat_msg;
+var collision_timer;
+var game_time;
+var best_time;
+    
+function create() {
+//    Basic configuration setup for Phaser
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.minWidth = 320;
+    this.scale.minHeight = 480;
+    this.scale.maxWidth = 768;
+    this.scale.maxHeight = 1152;
+    game.scale.refresh();
+    
+//    Background sprite
+    game.add.sprite(0, 0, 'background');
+
+//	Player sprite
+    player = game.add.sprite(400, 1150, 'player');
+	player.anchor.setTo(.5, .5);
+    player.scale.setTo(.75, .75);
+    game.physics.arcade.enable(player);
+    player.body.collideWorldBounds = true;
+    
+    cursors = game.input.keyboard.createCursorKeys();
+    obstacles = game.add.group();
+    slots = game.add.group();
+    
+    numLives = 3;
+    restart = 0;
+    stat_msg = 0;
+    collision_timer = 0;
+    
+    game_time = 0;
+    best_time = "0";
+    
+    lives_text = game.add.text(45, 1110, "Lives: " + numLives, style);
+    time_text = game.add.text(45, 1145, "Best: " + best_time, style);
+    best_time_text = game.add.text(630, 1145, "Time: 0", style);
+    
+}
+    
+function update() {
+    game_time++;
+    var collision_pause = 1.5 * 60;
+
+    
+    var line = 200;
+    
+    if(player.body.position.y <= line){
+        slots.create(50 + (winners++) * 125, 20, 'player');
+        player.y = 1100;
+    }
+    
+    if(collision_timer != 0){
+        player.frame = 1;
+        collision_timer--;
+        if(collision_timer == 0){
+            player.x = 450;
+            player.y = 1100;
+            player.body.immovable = false;
+        }
+    }else{
+//        Set player animation to alive
+        player.frame = 0;
+//        Allow/get keyboard input
+        keyboardInputUpdate();
+        touchscreenInputUpdate();
+//        Check collision between player and any obstacles
+        game.physics.arcade.collide(player, obstacles, function(player, obs){
+            collision_timer = collision_pause;
+            player.body.velocity.x = 0;
+            lives_text.text = "Lives: " + --numLives;
+            player.body.immovable = false;
+        });
+        best_time_text.text = "Time: " + parseInt(game_time / 60)
+    }
+    
+    if(restart != 0) {
+        if(--restart == 0) {
+            slots.forEach(function (c) { c.kill(); });
+            player.x = 450;
+            player.y = 1150;
+            numLives = 3;
+            lives_text.text = "Lives: " + numLives;
+            stat_msg.destroy();
+            winners = 0;
+            game_time = 0;
+        }
+    } else if (numLives == 0) {
+        stat_msg = game.add.text(150, 550, "You lose!", style2);
+        restart = 60 * 2;
+    } else if (winners == 6) {
+        stat_msg = game.add.text(150, 550, "You win!", style2);
+        best_time = game_time;
+        restart = 60 * 3;
+    }
+    
+    
+    var do_left_spawn = (Math.random() > 0.5 ? false : true) 
+    var obstacle_scale = .18;
+//        var obstacle2_scale = .55;
+    var obstacle2_scale = 5.5;
+    var spread = 100;
+    
+    var spawn_rate_per_s = 0.35 * 60;
+    var obstacle_speed = 450;
+//    obstacle_speed *= 1.5;
+    
+    var last_spawn = 0;
+    var last_spawn2 = 0;
+    
+    if (enemy_spawn_counter++ % (spawn_rate_per_s) == 0){  
+        var x = sidelines[do_left_spawn ? 0 : 1]
+        var y = (do_left_spawn ? obstacle_start_left[Math.floor(Math.random() * obstacle_start_left.length)] - 20 : obstacle_start_right[Math.floor(Math.random() * obstacle_start_right.length)] + 20);      
+        
+//        if (y != last_spawn && y != last_spawn2){       
+            for(var i = 0; i < 3; i++){
+                if (do_left_spawn) {
+                    y -= Math.floor(Math.random() * 20);
+                    obstacle = obstacles.create(x - spread * i, y, 'obstacle2');
+                    obstacle.animations.add('update', [0, 1, 2, 3, 4, 5], 8, true);
+                    obstacle.animations.play("update");
+                    obstacle.scale.setTo(obstacle2_scale, obstacle2_scale);
+                    
+                    game.physics.arcade.enable(obstacle);
+                    obstacle.body.immovable = true;
+                    obstacle.body.velocity.x = obstacle_speed;
+                }else{
+                    y += Math.floor(Math.random() * 20);
+                    obstacle = obstacles.create(x + spread * i, y, 'obstacle2');
+                    obstacle.animations.add('update', [0, 1, 2, 3, 4, 5], 8, true);
+                    obstacle.animations.play("update");
+                    obstacle.scale.setTo(-obstacle2_scale, obstacle2_scale);
+//                    obstacle.scale.setTo(1, -1);
+                    game.physics.arcade.enable(obstacle);
+                    obstacle.body.immovable = true;
+                    obstacle.body.velocity.x = -obstacle_speed;
+                }
+            }
+//        }
+        last_spawn2 = last_spawn;
+        last_spawn = y;
+    }
+}
+
+//Keep this setting variable outside its update variable so it doesn't get called on update()
+var player_speed = 8;
+function keyboardInputUpdate(){
+    //    var player_speed = 17;
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.keyboard.isDown(Phaser.Keyboard.A))
+    {
+        player.x -= player_speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.keyboard.isDown(Phaser.Keyboard.D))
+    {
+        player.x += player_speed;
+    }
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) || game.input.keyboard.isDown(Phaser.Keyboard.W))
+    {
+        player.y -= player_speed;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || game.input.keyboard.isDown(Phaser.Keyboard.S))
+    {
+        player.y += player_speed;
+    }
+}
+    
+//Keep this setting variable outside its update variable so it doesn't get called on update()
+var RIGHT = 0, LEFT = 1;
+var touchSpeed = 7.0;
+var control = 2.5;
+    
+    
+//Do both X and Y changes if the point falls within a certain range of X and Y
+//If not, do just Y if 
+function touchscreenInputUpdate(){
+    if (game.input.pointer1.isDown){
+        
+        if(game.input.x > player.position.x){
+            player.position.x += touchSpeed;
+        }
+        if(game.input.x < player.position.x){
+           player.position.x -= touchSpeed;
+        }
+       if(game.input.y > player.position.y){
+            player.position.y += touchSpeed;
+        }
+        if(game.input.y < player.position.y){
+            player.position.y -= touchSpeed;
+        }  
+    }
+}
+    
+    
+function goFullScreen(){ 
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT; 
+    if (this.game.scale.isFullScreen) { 
+        this.game.scale.stopFullScreen();  
+    } else {
+        this.game.scale.startFullScreen();     
+    }
+}
+    
+</script>
+
+</body>
+</html>
